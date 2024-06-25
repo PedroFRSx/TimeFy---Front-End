@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     // Ao carregar a página, listar os jogadores existentes
     listarJogadores();
@@ -38,7 +37,7 @@ $(document).ready(function() {
     });
 });
 
-// Função para listar jogadores na tabela
+// Função para listar jogadores na tabela e atualizar contador
 function listarJogadores() {
     $.ajax({
         type: "GET",
@@ -68,13 +67,15 @@ function listarJogadores() {
                 $("#corpoTabela").append(newRow);
             });
 
+            // Atualizar contador de jogadores
+            $("#countJogadores").text(response.length);
+
             // Inicializar DataTable
             if ($.fn.DataTable.isDataTable("#tabelaJogadores")) {
                 $('#tabelaJogadores').DataTable().destroy();
             }
 
             $('#tabelaJogadores').DataTable();
-
         },
         error: function() {
             alert("Erro ao listar jogadores.");
@@ -82,7 +83,7 @@ function listarJogadores() {
     });
 }
 
-// Função para cadastrar jogador
+// Cadastrar jogador
 function cadastrarJogador(jogador) {
     $.ajax({
         type: "POST",
@@ -100,7 +101,7 @@ function cadastrarJogador(jogador) {
     });
 }
 
-// Função para editar jogador
+// Editar jogador
 function editarJogador(jogador) {
     console.log("Jogador a ser atualizado:", jogador); // Verifica o objeto jogador antes de enviar a requisição PUT
 
@@ -121,14 +122,14 @@ function editarJogador(jogador) {
     });
 }
 
-// Função para carregar jogador para edição no modal
+// Carregar jogador para editar
 function editarJogadorModal(id) {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/api/jogadores/${id}`,
         success: function(jogador) {
             $("#myModal").modal("show");
-            $("#jogadorId").val(jogador.id); // Preenche o input hidden com o ID do jogador
+            $("#jogadorId").val(jogador.id); 
             $("#nome").val(jogador.nome);
             $("#salario").val(jogador.salario);
             $("#posicao").val(jogador.posicao);
@@ -138,7 +139,7 @@ function editarJogadorModal(id) {
             $("#altura").val(jogador.altura);
             $("#peso").val(jogador.peso);
             $("#desempenho").val(jogador.desempenho);
-            $("#idTime").val(jogador.time.id); // Define o ID do time selecionado no select
+            $("#idTime").val(jogador.time.id);
         },
         error: function() {
             alert("Erro ao carregar jogador para edição.");
@@ -146,7 +147,7 @@ function editarJogadorModal(id) {
     });
 }
 
-// Função para excluir jogador
+// Excluir jogador
 function excluirJogador(id) {
     if (confirm("Deseja realmente excluir este jogador?")) {
         $.ajax({
@@ -163,7 +164,7 @@ function excluirJogador(id) {
     }
 }
 
-// Função para limpar os campos do modal
+// Limpar os campos do modal
 function limparModal() {
     $("#jogadorId").val("");
     $("#nome").val("");
@@ -178,7 +179,7 @@ function limparModal() {
     $("#idTime").val("");
 }
 
-// Função para carregar os times
+// Carregar os times
 function carregarTimes() {
     $.ajax({
         url: 'http://localhost:8080/api/times',

@@ -30,6 +30,9 @@ $(document).ready(function() {
 
                 $("#corpoTabela").html(html);
 
+                // Atualiza o contador de times
+                $("#countTimes").text(`Total de Times: ${result.length}`);
+
                 // Inicialização da Tabela
                 if ($.fn.dataTable.isDataTable('#tabelaTimes')) {
                     $('#tabelaTimes').DataTable().clear().destroy();
