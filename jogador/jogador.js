@@ -95,8 +95,9 @@ function cadastrarJogador(jogador) {
             listarJogadores();
             alert("Jogador cadastrado com sucesso!");
         },
-        error: function() {
-            alert("Erro ao cadastrar jogador.");
+        error: function(jqXHR) {
+            console.log(jqXHR.responseText);
+            alert("Erro ao cadastrar jogador: " + jqXHR.responseText);
         }
     });
 }
@@ -115,9 +116,10 @@ function editarJogador(jogador) {
             listarJogadores();
             alert("Jogador atualizado com sucesso!");
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText); // Exibe detalhes do erro no console para depuração
-            alert("Erro ao atualizar jogador.");
+        error: function(res) {
+            var message = jogadorId === null ? 'Erro ao criar o jogador!' : 'Erro ao atualizar o jogador!';
+                console.log (res.responseText);
+                alert(message + " - " + res.responseText);
         }
     });
 }
@@ -157,8 +159,9 @@ function excluirJogador(id) {
                 listarJogadores();
                 alert("Jogador excluído com sucesso!");
             },
-            error: function() {
-                alert("Erro ao excluir jogador.");
+            error: function(jqXHR) {
+                console.log(jqXHR.responseText);
+                alert("Erro ao excluir jogador: " + jqXHR.responseText);
             }
         });
     }

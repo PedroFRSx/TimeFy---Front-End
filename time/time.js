@@ -32,8 +32,6 @@ $(document).ready(function() {
 
                 // Atualiza o contador de times
                 $("#countTimes").text(`Total de Times: ${result.length}`);
-
-                // Inicialização da Tabela
                 if ($.fn.dataTable.isDataTable('#tabelaTimes')) {
                     $('#tabelaTimes').DataTable().clear().destroy();
                 }
@@ -108,9 +106,9 @@ $(document).ready(function() {
                 alert(message);
                 $('#myModal').modal('hide');
                 listarTimes();
-                timeId = null;  // Limpar o timeId após a operação bem-sucedida
+                timeId = null; 
             },
-            error: function (res) {
+            error: function (res) { // Mensagens de erro das verificações do Spring
                 var message = timeId === null ? 'Erro ao criar o time!' : 'Erro ao atualizar o time!';
                 console.log (res.responseText);
                 alert(message + " - " + res.responseText);
